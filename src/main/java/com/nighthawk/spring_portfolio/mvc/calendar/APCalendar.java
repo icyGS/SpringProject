@@ -31,7 +31,7 @@ public class APCalendar {
      * 6 denotes Saturday. 
      * firstDayOfYear(2019) returns 2 for Tuesday.
     */
-    private static int firstDayOfYear(int year) {
+    static int firstDayOfYear(int year) {
         Date currentDate = new Date(year-1900, 0, 1);
         return currentDate.getDay();
     }
@@ -43,7 +43,7 @@ public class APCalendar {
      * dayOfYear(3, 1, 2017) returns 60, since 2017 is not a leap year
      * dayOfYear(3, 1, 2016) returns 61, since 2016 is a leap year. 
     */ 
-    private static int dayOfYear(int month, int day, int year) {
+    static int dayOfYear(int month, int day, int year) {
         Calendar cal = Calendar.getInstance();
         cal.set(year, month-1, day);
         int date = cal.get(Calendar.DAY_OF_YEAR);

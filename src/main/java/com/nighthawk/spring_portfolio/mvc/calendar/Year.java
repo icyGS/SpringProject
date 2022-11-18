@@ -8,6 +8,10 @@ package com.nighthawk.spring_portfolio.mvc.calendar;
 class Year {
    private int year;
    private boolean isLeapYear;
+   private int firstDayOfYear;
+   private int dayOfYear;
+   private int numberOfLeapYears;
+   private int dayOfWeek;
 
    // zero argument constructor
    public Year() {} 
@@ -19,6 +23,7 @@ class Year {
    public void setYear(int year) {
       this.year = year;
       this.setIsLeapYear(year);
+      this.setFirstDayOfYear(year);
    }
 
    /* isLeapYear getter/setters */
@@ -32,11 +37,62 @@ class Year {
    /* isLeapYearToString formatted to be mapped to JSON */
    public String isLeapYearToString(){
       return ( "{ \"year\": "  +this.year+  ", " + "\"isLeapYear\": "  +this.isLeapYear+ " }" );
-   }	
+   }
+   
+   // firstDayOfYear getters/setters
+   public int getFirstDayOfYear(int year){
+      return APCalendar.firstDayOfYear(year);
+   }
+
+   void setFirstDayOfYear(int year){
+      this.firstDayOfYear = APCalendar.firstDayOfYear(year);
+   }
+
+   public String firstDayOfYearToString(){
+      return ( "{ \"firstDayOfYear\": "  + this.firstDayOfYear + " }" );
+   }
+
+   // dayOfYear getter/setters
+   public int getDayOfYear(int month, int day, int year) {
+      return APCalendar.dayOfYear(month, day, year);
+   }
+   public void setDayOfYear(int month, int day, int year) {  // this is private to avoid tampering
+      this.dayOfYear = APCalendar.dayOfYear(month, day, year);
+   }
+
+   public String dayOfYearToString(){
+      return ( "{ \"dayOfYear\": "  + this.dayOfYear + " }" );
+   }
+
+   // numberOfLeapYears getter/setters
+   public int getNumberOfLeapYears(int year1, int year2) {
+      return APCalendar.numberOfLeapYears(year1, year2);
+   }
+   public void setNumberOfLeapYears(int year1, int year2) {  // this is private to avoid tampering
+      this.numberOfLeapYears = APCalendar.numberOfLeapYears(year1, year2);
+   }
+
+   public String numberOfLeapYearsToString(){
+      return ( "{ \"numberOfLeapYears\": "  + this.numberOfLeapYears + " }" );
+   }
+
+   // dayOfWeek getter/setters
+   public int getDayOfWeek(int month, int day, int year){
+      return APCalendar.dayOfWeek(month, day, year);
+   }
+   public void setDayOfWeek(int month, int day, int year){
+      this.dayOfWeek = APCalendar.dayOfWeek(month, day, year);
+   }
+
+   public String dayOfWeekToString(){
+      return ( "{ \"dayOfWeek\": "  + this.dayOfWeek + " }" );
+   }
+
+
 
    /* standard toString placeholder until class is extended */
    public String toString() { 
-      return isLeapYearToString(); 
+      return isLeapYearToString();
    }
 
    public static void main(String[] args) {

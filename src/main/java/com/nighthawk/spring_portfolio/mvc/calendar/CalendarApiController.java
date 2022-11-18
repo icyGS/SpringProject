@@ -37,4 +37,55 @@ public class CalendarApiController {
     }
 
     // add other methods
+    @GetMapping("/firstDayOfYear/{year}")
+    public ResponseEntity<JsonNode> getFirstDayOfYear(@PathVariable int year) throws JsonMappingException, JsonProcessingException {
+      // Backend Year Object
+      Year year_obj1 = new Year();
+      year_obj1.setFirstDayOfYear(year);  // evaluates Leap Year
+
+      // Turn Year Object into JSON
+      ObjectMapper mapper = new ObjectMapper(); 
+      JsonNode json = mapper.readTree(year_obj1.firstDayOfYearToString()); // this requires exception handling
+
+      return ResponseEntity.ok(json);  // JSON response, see ExceptionHandlerAdvice for throws
+    }
+
+    @GetMapping("/dayOfYear/{month}/{day}/{year}")
+    public ResponseEntity<JsonNode> getDayOfYear(@PathVariable("month") int month, @PathVariable("day") int day,  @PathVariable("year") int year) throws JsonMappingException, JsonProcessingException {
+      // Backend Year Object
+      Year year_obj2 = new Year();
+      year_obj2.setDayOfYear(month, day, year);  // sets year
+
+      // Turn Year Object into JSON
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode json = mapper.readTree(year_obj2.dayOfYearToString()); // this requires exception handling
+
+      return ResponseEntity.ok(json);  // JSON response, see ExceptionHandlerAdvice for throws
+    }
+
+    @GetMapping("/numberOfLeapYears/{year1}/{year2}")
+    public ResponseEntity<JsonNode> getNumberOfLeapYears(@PathVariable("year1") int year1, @PathVariable("year2") int year2) throws JsonMappingException, JsonProcessingException {
+      // Backend Year Object
+      Year year_obj3 = new Year();
+      year_obj3.setNumberOfLeapYears(year1, year2);
+
+      // Turn Year Object into JSON
+      ObjectMapper mapper = new ObjectMapper(); 
+      JsonNode json = mapper.readTree(year_obj3.numberOfLeapYearsToString()); // this requires exception handling
+
+      return ResponseEntity.ok(json);  // JSON response, see ExceptionHandlerAdvice for throws
+    }
+
+    @GetMapping("/dayOfWeek/{month}/{day}/{year}")
+    public ResponseEntity<JsonNode> getDayOfWeek(@PathVariable("month") int month, @PathVariable("day") int day,  @PathVariable("year") int year) throws JsonMappingException, JsonProcessingException {
+      // Backend Year Object
+      Year year_obj4 = new Year();
+      year_obj4.setDayOfWeek(month, day, year);
+
+      // Turn Year Object into JSON
+      ObjectMapper mapper = new ObjectMapper(); 
+      JsonNode json = mapper.readTree(year_obj4.dayOfWeekToString()); // this requires exception handling
+
+      return ResponseEntity.ok(json);  // JSON response, see ExceptionHandlerAdvice for throws
+    }
 }
