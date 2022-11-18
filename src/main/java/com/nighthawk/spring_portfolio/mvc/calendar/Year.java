@@ -12,6 +12,8 @@ class Year {
    private int dayOfYear;
    private int numberOfLeapYears;
    private int dayOfWeek;
+   private int month;
+   private int day;
 
    // zero argument constructor
    public Year() {} 
@@ -44,12 +46,12 @@ class Year {
       return APCalendar.firstDayOfYear(year);
    }
 
-   void setFirstDayOfYear(int year){
+   public void setFirstDayOfYear(int year){
       this.firstDayOfYear = APCalendar.firstDayOfYear(year);
    }
 
    public String firstDayOfYearToString(){
-      return ( "{ \"firstDayOfYear\": "  + this.firstDayOfYear + " }" );
+      return ( "{ \"year\": "  +this.year+  ", " + "\"firstDayOfYear\": "  + this.firstDayOfYear + " }" );
    }
 
    // dayOfYear getter/setters
@@ -57,23 +59,30 @@ class Year {
       return APCalendar.dayOfYear(month, day, year);
    }
    public void setDayOfYear(int month, int day, int year) {  // this is private to avoid tampering
+      this.month = month;
+      this.day = day;
+      this.year = year;
       this.dayOfYear = APCalendar.dayOfYear(month, day, year);
    }
 
    public String dayOfYearToString(){
-      return ( "{ \"dayOfYear\": "  + this.dayOfYear + " }" );
+      return ("{ \"month\": " + this.month + ", " + "\"day\": " + this.day + ", " + "\"year\": " + this.year + ", "
+            + "\"dayOfYear\": " + this.dayOfYear + " }");
    }
 
    // numberOfLeapYears getter/setters
    public int getNumberOfLeapYears(int year1, int year2) {
       return APCalendar.numberOfLeapYears(year1, year2);
    }
-   public void setNumberOfLeapYears(int year1, int year2) {  // this is private to avoid tampering
+
+   void setNumberOfLeapYears(int year1, int year2) { // this is private to avoid tampering
       this.numberOfLeapYears = APCalendar.numberOfLeapYears(year1, year2);
    }
 
-   public String numberOfLeapYearsToString(){
-      return ( "{ \"numberOfLeapYears\": "  + this.numberOfLeapYears + " }" );
+   /* firstDayOfYearToString formatted to be mapped to JSON */
+   public String numberOfLeapYearsToString(int year1, int year2) {
+      return ("{ \"year1\": " + year1 + ", " + "\"year2\": " + year2 + ", " + "\"numberOfLeapYears\": "
+            + this.numberOfLeapYears + " }");
    }
 
    // dayOfWeek getter/setters
@@ -81,11 +90,15 @@ class Year {
       return APCalendar.dayOfWeek(month, day, year);
    }
    public void setDayOfWeek(int month, int day, int year){
+      this.month = month;
+      this.day = day;
+      this.year = year;
       this.dayOfWeek = APCalendar.dayOfWeek(month, day, year);
    }
 
-   public String dayOfWeekToString(){
-      return ( "{ \"dayOfWeek\": "  + this.dayOfWeek + " }" );
+   public String dayOfWeekToString() {
+      return ("{ \"month\": " + this.month + ", " + "\"day\": " + this.day + ", " + "\"year\": " + this.year + ", "
+            + "\"dayOfWeek\": " + this.dayOfWeek + " }");
    }
 
 
