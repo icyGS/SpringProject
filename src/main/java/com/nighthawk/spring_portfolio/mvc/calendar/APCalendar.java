@@ -70,7 +70,7 @@ public class APCalendar {
         int firstDay = firstDayOfYear(year);
         int date = dayOfYear(month, day, year) - 1;
         int out = firstDay + date;
-        return(out %7);
+        return(out % 7);
     }
     
 
