@@ -125,11 +125,11 @@ public class Person {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date myDate = sdf.parse("2006-10-19");
 
-        Person allArgsPerson = new Person("krishpatil1019@gmail.com", "12121", "Krish Patil", 
+        Person argsPerson = new Person("krishpatil1019@gmail.com", "12121", "Krish Patil", 
         myDate, 68, 150);
         Person noArgsPerson = new Person();
 
         System.out.println(noArgsPerson);
-        System.out.println(allArgsPerson);
+        System.out.println(argsPerson);
     }
 }
