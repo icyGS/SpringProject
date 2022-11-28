@@ -6,6 +6,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,7 +65,12 @@ public class Person {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
-    
+
+    @Column(unique=false)
+    private int height;
+
+    @Column(unique=false)
+    private int weight;
 
     /* HashMap is used to store JSON for daily "stats"
     "stats": {
@@ -79,11 +86,13 @@ public class Person {
     
 
     // Constructor used when building object from an API
-    public Person(String email, String password, String name, Date dob) {
+    public Person(String email, String password, String name, Date dob, int height, int weight) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.dob = dob;
+        this.height = height;
+        this.weight = weight;
     }
 
     // A custom getter to return age from dob attribute
@@ -93,5 +102,34 @@ public class Person {
             return Period.between(birthDay, LocalDate.now()).getYears(); }
         return -1;
     }
+    
 
+    public String toString(){
+        return ("{ \"email\": " + this.email + ", " + "\"password\": " + this.password + ", " + "\"name\": " + this.name + ", " + "\"dob\": " + this.dob + " }" );
+    }
+
+    public String getAgeToString(){
+        return ("{ \"name\": " + this.name + " ," + "\"age\": " + this.getAge() + " }" );
+    }
+
+    public int getBMI(){
+        int bmi = (int) ( 703 * this.weight / Math.pow(this.height, 2) );
+        return bmi;
+    }
+
+    public String getBMIToString(){
+        return ("{ \"name\": " + this.name + " ," + "\"bmi\": " + this.getBMI() + " }" );
+    }
+
+    public static void main(String[] args) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date myDate = sdf.parse("2006-10-19");
+
+        Person allArgsPerson = new Person("krishpatil1019@gmail.com", "12121", "Krish Patil", 
+        myDate, 68, 150);
+        Person noArgsPerson = new Person();
+
+        System.out.println(noArgsPerson);
+        System.out.println(allArgsPerson);
+    }
 }
